@@ -12,7 +12,7 @@ mod tests {
 
     #[test]
     fn puzzle_1() {
-        let day: Day14 = Day14 {};
+        let mut day: Day14 = Day14 {};
 
         let test_file = format!("inputs/{}_test.txt", day.day_str());
         day.run_puzzle1(test_file);
@@ -25,7 +25,7 @@ mod tests {
 
     #[test]
     fn puzzle_2() {
-        let day: Day14 = Day14 {};
+        let mut day: Day14 = Day14 {};
 
         let test_file = format!("inputs/{}_test.txt", day.day_str());
         day.run_puzzle2(test_file);

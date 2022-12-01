@@ -19,6 +19,7 @@ pub fn file_to_string(file_name: String) -> String {
     file_data_string
 }
 
+#[allow(dead_code)]
 pub fn convert_string_of_ints_to_list(input_str: String) -> Vec<i32> {
     // Convert list of strings into a u32 vector.
     input_str

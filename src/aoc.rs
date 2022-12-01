@@ -1,8 +1,8 @@
 pub trait AdventOfCode {
     fn day_str(&self) -> String;
 
-    fn run_puzzle1(&self, file_path: String);
-    fn run_puzzle2(&self, file_path: String);
+    fn run_puzzle1(&mut self, file_path: String);
+    fn run_puzzle2(&mut self, file_path: String);
 
     fn get_puzzle1_result(&self) -> i32;
     fn get_puzzle2_result(&self) -> i32;
@@ -16,10 +16,10 @@ macro_rules! not_implemented {
                 $day_str.to_owned()
             }
 
-            fn run_puzzle1(&self, _file_path: String) {
+            fn run_puzzle1(&mut self, _file_path: String) {
             }
 
-            fn run_puzzle2(&self, _file_path: String) {
+            fn run_puzzle2(&mut self, _file_path: String) {
             }
 
             fn get_puzzle1_result(&self) -> i32 {

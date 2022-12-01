@@ -57,7 +57,10 @@ mod file_util;
 
 fn run_all_puzzles() {
     let array: [Box<dyn AdventOfCode>; 25] = [
-        Box::new(Day1 {}),
+        Box::new(Day1 {
+            puzzle1_result: 0,
+            puzzle2_result: 0,
+        }),
         Box::new(Day2 {}),
         Box::new(Day3 {}),
         Box::new(Day4 {}),
@@ -84,7 +87,7 @@ fn run_all_puzzles() {
         Box::new(Day25 {}),
     ];
 
-    let days: Vec<Box<dyn AdventOfCode>> = Vec::from(array);
+    let mut days: Vec<Box<dyn AdventOfCode>> = Vec::from(array);
     let value_width = 14;
     let time_width = 7;
     println!(
@@ -99,7 +102,7 @@ fn run_all_puzzles() {
         "+ {:->4} + {:-<value_width$} + {:-<time_width$} + {:-<value_width$} + {:-<time_width$} +",
         "", "", "", "", ""
     );
-    for (day, puzzle) in days.iter().enumerate() {
+    for (day, puzzle) in days.iter_mut().enumerate() {
         let input_file = format!("inputs/{}.txt", puzzle.day_str());
 
         let not_done = "-".to_string();
@@ -107,22 +110,22 @@ fn run_all_puzzles() {
         let start1 = Instant::now();
         puzzle.run_puzzle1(input_file.clone());
         let result1 = puzzle.get_puzzle1_result();
-        let mut puzzle1_time_str: String = start1.elapsed().as_millis().to_string() + " ms";
+        let mut puzzle1_time_str: String = start1.elapsed().as_micros().to_string() + " us";
         let mut result1_str: String = result1.to_string();
 
         if result1 == 0 {
             result1_str = not_done.clone();
-            puzzle1_time_str = not_done.clone() + " ms";
+            puzzle1_time_str = not_done.clone() + " us";
         }
 
         let start2 = Instant::now();
         puzzle.run_puzzle2(input_file.clone());
         let result2 = puzzle.get_puzzle2_result();
-        let mut puzzle2_time_str = start2.elapsed().as_millis().to_string() + " ms";
+        let mut puzzle2_time_str = start2.elapsed().as_micros().to_string() + " us";
         let mut result2_str: String = result2.to_string();
         if result2 == 0 {
             result2_str = not_done.clone();
-            puzzle2_time_str = not_done.clone() + " ms";
+            puzzle2_time_str = not_done.clone() + " us";
         }
 
         if result1 == 0 && result2 == 0 {
