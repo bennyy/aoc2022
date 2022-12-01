@@ -57,34 +57,31 @@ mod file_util;
 
 fn run_all_puzzles() {
     let array: [Box<dyn AdventOfCode>; 25] = [
-        Box::new(Day1 {
-            puzzle1_result: 0,
-            puzzle2_result: 0,
-        }),
-        Box::new(Day2 {}),
-        Box::new(Day3 {}),
-        Box::new(Day4 {}),
-        Box::new(Day5 {}),
-        Box::new(Day6 {}),
-        Box::new(Day7 {}),
-        Box::new(Day8 {}),
-        Box::new(Day9 {}),
-        Box::new(Day10 {}),
-        Box::new(Day11 {}),
-        Box::new(Day12 {}),
-        Box::new(Day13 {}),
-        Box::new(Day14 {}),
-        Box::new(Day15 {}),
-        Box::new(Day16 {}),
-        Box::new(Day17 {}),
-        Box::new(Day18 {}),
-        Box::new(Day19 {}),
-        Box::new(Day20 {}),
-        Box::new(Day21 {}),
-        Box::new(Day22 {}),
-        Box::new(Day23 {}),
-        Box::new(Day24 {}),
-        Box::new(Day25 {}),
+        Box::new(Day1::new()),
+        Box::new(Day2::new()),
+        Box::new(Day3::new()),
+        Box::new(Day4::new()),
+        Box::new(Day5::new()),
+        Box::new(Day6::new()),
+        Box::new(Day7::new()),
+        Box::new(Day8::new()),
+        Box::new(Day9::new()),
+        Box::new(Day10::new()),
+        Box::new(Day11::new()),
+        Box::new(Day12::new()),
+        Box::new(Day13::new()),
+        Box::new(Day14::new()),
+        Box::new(Day15::new()),
+        Box::new(Day16::new()),
+        Box::new(Day17::new()),
+        Box::new(Day18::new()),
+        Box::new(Day19::new()),
+        Box::new(Day20::new()),
+        Box::new(Day21::new()),
+        Box::new(Day22::new()),
+        Box::new(Day23::new()),
+        Box::new(Day24::new()),
+        Box::new(Day25::new()),
     ];
 
     let mut days: Vec<Box<dyn AdventOfCode>> = Vec::from(array);
@@ -103,12 +100,13 @@ fn run_all_puzzles() {
         "", "", "", "", ""
     );
     for (day, puzzle) in days.iter_mut().enumerate() {
-        let input_file = format!("inputs/{}.txt", puzzle.day_str());
+        let input_str: String =
+            file_util::file_to_string(format!("inputs/{}.txt", puzzle.day_str()));
 
         let not_done = "-".to_string();
 
         let start1 = Instant::now();
-        puzzle.run_puzzle1(input_file.clone());
+        puzzle.run_puzzle1(input_str.clone());
         let result1 = puzzle.get_puzzle1_result();
         let mut puzzle1_time_str: String = start1.elapsed().as_micros().to_string() + " us";
         let mut result1_str: String = result1.to_string();
@@ -119,7 +117,7 @@ fn run_all_puzzles() {
         }
 
         let start2 = Instant::now();
-        puzzle.run_puzzle2(input_file.clone());
+        puzzle.run_puzzle2(input_str.clone());
         let result2 = puzzle.get_puzzle2_result();
         let mut puzzle2_time_str = start2.elapsed().as_micros().to_string() + " us";
         let mut result2_str: String = result2.to_string();
