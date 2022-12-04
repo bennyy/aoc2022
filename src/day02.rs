@@ -1,18 +1,9 @@
-use crate::aoc::AdventOfCode;
+use crate::{aoc::AdventOfCode, default_aoc_struct, default_new_ctor};
 
-pub struct Day2 {
-    puzzle1_result: i32,
-    puzzle2_result: i32,
-}
+default_aoc_struct!(Day2);
+default_new_ctor!(Day2);
 
 impl Day2 {
-    pub fn new() -> Day2 {
-        Day2 {
-            puzzle1_result: 0,
-            puzzle2_result: 0,
-        }
-    }
-
     pub fn translate_hand(&self, action: char) -> char {
         match action {
             'X' => 'A',

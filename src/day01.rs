@@ -1,19 +1,9 @@
-use crate::aoc::AdventOfCode;
+use crate::{aoc::AdventOfCode, default_aoc_struct, default_new_ctor};
 
-#[derive(Default)]
-pub struct Day1 {
-    puzzle1_result: i32,
-    puzzle2_result: i32,
-}
+default_aoc_struct!(Day1);
+default_new_ctor!(Day1);
 
 impl Day1 {
-    pub fn new() -> Day1 {
-        Day1 {
-            puzzle1_result: 0,
-            puzzle2_result: 0,
-        }
-    }
-
     fn get_elf_inventory(&self, input_str: String) -> Vec<Vec<i32>> {
         let elf_foods_strings: Vec<&str> = input_str.split("\n\n").collect();
         let mut elf_inventory: Vec<Vec<i32>> = Vec::new();

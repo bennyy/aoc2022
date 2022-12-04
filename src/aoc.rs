@@ -47,6 +47,31 @@ macro_rules! not_implemented {
 }
 
 #[macro_export]
+macro_rules! default_aoc_struct {
+    ($type: ident) => {
+        #[derive(Default)]
+        pub struct $type {
+            puzzle1_result: i32,
+            puzzle2_result: i32,
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! default_new_ctor {
+    ($type: ident) => {
+        impl $type {
+            pub fn new() -> $type {
+                $type {
+                    puzzle1_result: 0,
+                    puzzle2_result: 0,
+                }
+            }
+        }
+    };
+}
+
+#[macro_export]
 macro_rules! puzzle1_test {
     ($($type:ident),+ $(,)?, $test_expected:expr, $expected:expr) => ($(
         use $crate::{file_util};

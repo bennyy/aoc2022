@@ -1,21 +1,11 @@
 use std::collections::HashSet;
 
-use crate::aoc::AdventOfCode;
+use crate::{aoc::AdventOfCode, default_aoc_struct, default_new_ctor};
 
-#[derive(Default)]
-pub struct Day3 {
-    puzzle1_result: i32,
-    puzzle2_result: i32,
-}
+default_aoc_struct!(Day3);
+default_new_ctor!(Day3);
 
 impl Day3 {
-    pub fn new() -> Day3 {
-        Day3 {
-            puzzle1_result: 0,
-            puzzle2_result: 0,
-        }
-    }
-
     fn calculate_prio(c: char) -> u32 {
         const START_UPPER: u32 = ('A' as u32) - 1;
         const START_LOWER: u32 = ('a' as u32) - 1;
