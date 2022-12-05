@@ -1,4 +1,5 @@
 use crate::{aoc::AdventOfCode, not_implemented};
+use std::any::Any;
 
 pub struct Day6 {}
 

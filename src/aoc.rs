@@ -1,11 +1,13 @@
+use core::any::Any;
+
 pub trait AdventOfCode {
     fn day_str(&self) -> String;
 
     fn run_puzzle1(&mut self, input_str: String);
     fn run_puzzle2(&mut self, input_str: String);
 
-    fn get_puzzle1_result(&self) -> i32;
-    fn get_puzzle2_result(&self) -> i32;
+    fn get_puzzle1_result(&self) -> Option<Box<dyn Any>>;
+    fn get_puzzle2_result(&self) -> Option<Box<dyn Any>>;
 }
 
 #[macro_export]
@@ -27,12 +29,12 @@ macro_rules! _not_implemented {
 
             fn run_puzzle2(&mut self, _input_str: String) {}
 
-            fn get_puzzle1_result(&self) -> i32 {
-                0
+            fn get_puzzle1_result(&self) -> Option<Box<dyn Any>> {
+                None
             }
 
-            fn get_puzzle2_result(&self) -> i32 {
-                0
+            fn get_puzzle2_result(&self) -> Option<Box<dyn Any>> {
+                None
             }
         }
     };
@@ -48,11 +50,11 @@ macro_rules! not_implemented {
 
 #[macro_export]
 macro_rules! default_aoc_struct {
-    ($type: ident) => {
+    ($type: ident, $struct_type: ident) => {
         #[derive(Default)]
         pub struct $type {
-            puzzle1_result: i32,
-            puzzle2_result: i32,
+            puzzle1_result: $struct_type,
+            puzzle2_result: $struct_type,
         }
     };
 }
@@ -63,8 +65,8 @@ macro_rules! default_new_ctor {
         impl $type {
             pub fn new() -> $type {
                 $type {
-                    puzzle1_result: 0,
-                    puzzle2_result: 0,
+                    puzzle1_result: Default::default(),
+                    puzzle2_result: Default::default(),
                 }
             }
         }
@@ -82,11 +84,13 @@ macro_rules! puzzle1_test {
 
             let test_str: String = file_util::file_to_string(format!("inputs/{}_test.txt", day.day_str()));
             day.run_puzzle1(test_str);
-            assert_eq!($test_expected, day.get_puzzle1_result());
+            let actual_value = *day.get_puzzle1_result().unwrap_or(Box::new(0)).downcast::<i32>().unwrap();
+            assert_eq!($test_expected, actual_value);
 
             let main_str: String = file_util::file_to_string(format!("inputs/{}.txt", day.day_str()));
             day.run_puzzle1(main_str);
-            assert_eq!($expected, day.get_puzzle1_result());
+            let actual_value = *day.get_puzzle1_result().unwrap_or(Box::new(0)).downcast::<i32>().unwrap();
+            assert_eq!($expected, actual_value);
         }
     )+)
 }
@@ -100,11 +104,13 @@ macro_rules! puzzle2_test {
 
             let test_str: String = file_util::file_to_string(format!("inputs/{}_test.txt", day.day_str()));
             day.run_puzzle2(test_str);
-            assert_eq!($test_expected, day.get_puzzle2_result());
+            let actual_value = *day.get_puzzle2_result().unwrap_or(Box::new(0)).downcast::<i32>().unwrap();
+            assert_eq!($test_expected, actual_value);
 
             let main_str: String = file_util::file_to_string(format!("inputs/{}.txt", day.day_str()));
             day.run_puzzle2(main_str);
-            assert_eq!($expected, day.get_puzzle2_result());
+            let actual_value = *day.get_puzzle2_result().unwrap_or(Box::new(0)).downcast::<i32>().unwrap();
+            assert_eq!($expected, actual_value);
         }
     )+)
 }

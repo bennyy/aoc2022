@@ -1,8 +1,8 @@
+use crate::{aoc::AdventOfCode, default_aoc_struct, default_new_ctor};
+use std::any::Any;
 use std::collections::HashSet;
 
-use crate::{aoc::AdventOfCode, default_aoc_struct, default_new_ctor};
-
-default_aoc_struct!(Day3);
+default_aoc_struct!(Day3, i32);
 default_new_ctor!(Day3);
 
 impl Day3 {
@@ -65,12 +65,11 @@ impl AdventOfCode for Day3 {
         }
     }
 
-    fn get_puzzle1_result(&self) -> i32 {
-        self.puzzle1_result
+    fn get_puzzle1_result(&self) -> Option<Box<dyn Any>> {
+        Some(Box::new(self.puzzle1_result))
     }
-
-    fn get_puzzle2_result(&self) -> i32 {
-        self.puzzle2_result
+    fn get_puzzle2_result(&self) -> Option<Box<dyn Any>> {
+        Some(Box::new(self.puzzle2_result))
     }
 }
 

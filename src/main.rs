@@ -25,6 +25,7 @@ use crate::day22::Day22;
 use crate::day23::Day23;
 use crate::day24::Day24;
 use crate::day25::Day25;
+use std::any::Any;
 use std::time::Instant;
 
 mod aoc;
@@ -54,6 +55,19 @@ mod day23;
 mod day24;
 mod day25;
 mod file_util;
+
+fn convert_result_to_string(input: Option<Box<dyn Any>>) -> Option<String> {
+    if let Some(value) = input {
+        if value.is::<i32>() {
+            return Some(value.downcast::<i32>().unwrap().to_string());
+        } else if value.is::<String>() {
+            return Some(value.downcast::<String>().unwrap().to_string());
+        } else {
+            panic!("Unknown Any!");
+        }
+    }
+    None
+}
 
 fn run_all_puzzles() {
     let array: [Box<dyn AdventOfCode>; 25] = [
@@ -103,39 +117,30 @@ fn run_all_puzzles() {
         let input_str: String =
             file_util::file_to_string(format!("inputs/{}.txt", puzzle.day_str()));
 
-        let not_done = "-".to_string();
-
         let start1 = Instant::now();
         puzzle.run_puzzle1(input_str.clone());
-        let result1 = puzzle.get_puzzle1_result();
-        let mut puzzle1_time_str: String = start1.elapsed().as_micros().to_string() + " us";
-        let mut result1_str: String = result1.to_string();
-
-        if result1 == 0 {
-            result1_str = not_done.clone();
-            puzzle1_time_str = not_done.clone() + " us";
-        }
+        let puzzle1_time = start1.elapsed().as_micros();
 
         let start2 = Instant::now();
         puzzle.run_puzzle2(input_str.clone());
-        let result2 = puzzle.get_puzzle2_result();
-        let mut puzzle2_time_str = start2.elapsed().as_micros().to_string() + " us";
-        let mut result2_str: String = result2.to_string();
-        if result2 == 0 {
-            result2_str = not_done.clone();
-            puzzle2_time_str = not_done.clone() + " us";
-        }
+        let puzzle2_time = start2.elapsed().as_micros();
 
-        if result1 == 0 && result2 == 0 {
-            //continue;
-        }
+        let result1 = convert_result_to_string(puzzle.get_puzzle1_result());
+        let result2 = convert_result_to_string(puzzle.get_puzzle2_result());
+
+        let result1_str = result1.unwrap_or_else(|| "-".to_string());
+        let result2_str = result2.unwrap_or_else(|| "-".to_string());
+
+        let time1_str = puzzle1_time.to_string() + " us";
+        let time2_str = puzzle2_time.to_string() + " us";
+
         println!(
             "| {:>4} | {:<value_width$} | {:<time_width$} | {:<value_width$} | {:<time_width$} |",
             day + 1,
             result1_str,
-            puzzle1_time_str,
+            time1_str,
             result2_str,
-            puzzle2_time_str
+            time2_str
         );
     }
     println!(
