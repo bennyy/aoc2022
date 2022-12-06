@@ -24,7 +24,7 @@ impl AdventOfCode for Day6 {
     }
 
     fn run_puzzle1(&mut self, input_str: String) {
-        let chars: Vec<char> = input_str.chars().collect::<Vec<char>>();
+        let chars: Vec<char> = input_str.chars().collect();
         self.puzzle1_result = Day6::find_index(&chars, 4);
     }
 
