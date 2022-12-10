@@ -100,7 +100,7 @@ fn run_all_puzzles() {
 
     let mut days: Vec<Box<dyn AdventOfCode>> = Vec::from(array);
     let value_width = 14;
-    let time_width = 7;
+    let time_width = 9;
     println!(
         "+ {:->4} + {:-<value_width$} + {:-<time_width$} + {:-<value_width$} + {:-<time_width$} +",
         "", "", "", "", ""

@@ -130,7 +130,7 @@ mod tests {
         day.run_puzzle1(test_str);
         let actual_value = *day
             .get_puzzle1_result()
-            .unwrap_or(Box::new(0))
+            .unwrap_or_else(|| Box::new(0))
             .downcast::<String>()
             .unwrap();
         assert_eq!("CMZ", actual_value);
@@ -139,7 +139,7 @@ mod tests {
         day.run_puzzle1(main_str);
         let actual_value = *day
             .get_puzzle1_result()
-            .unwrap_or(Box::new(0))
+            .unwrap_or_else(|| Box::new(0))
             .downcast::<String>()
             .unwrap();
         assert_eq!("TQRFCBSJJ", actual_value);
@@ -154,7 +154,7 @@ mod tests {
         day.run_puzzle2(test_str);
         let actual_value = *day
             .get_puzzle2_result()
-            .unwrap_or(Box::new(""))
+            .unwrap_or_else(|| Box::new(""))
             .downcast::<String>()
             .unwrap();
         assert_eq!("MCD", actual_value);
@@ -163,7 +163,7 @@ mod tests {
         day.run_puzzle2(main_str);
         let actual_value = *day
             .get_puzzle2_result()
-            .unwrap_or(Box::new(""))
+            .unwrap_or_else(|| Box::new(""))
             .downcast::<String>()
             .unwrap();
         assert_eq!("RMHFJNVFP", actual_value);
