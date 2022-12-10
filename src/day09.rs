@@ -10,11 +10,9 @@ impl AdventOfCode for Day9 {
         "day09".to_owned()
     }
 
-    fn run_puzzle1(&mut self, input_str: String) {
-    }
+    fn run_puzzle1(&mut self, input_str: String) {}
 
-    fn run_puzzle2(&mut self, input_str: String) {
-    }
+    fn run_puzzle2(&mut self, input_str: String) {}
 
     fn get_puzzle1_result(&self) -> Option<Box<dyn Any>> {
         Some(Box::new(self.puzzle1_result))
@@ -24,7 +22,6 @@ impl AdventOfCode for Day9 {
         Some(Box::new(self.puzzle2_result))
     }
 }
-
 
 #[cfg(test)]
 mod tests {
