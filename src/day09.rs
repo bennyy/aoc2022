@@ -4,36 +4,16 @@ default_aoc_struct!(Day9, i32);
 default_new_ctor!(Day9);
 
 impl Day9 {
-    fn step(direction: (i32, i32), steps: i32, head: &(i32, i32)) -> Vec<(i32, i32)> {
-        let mut vec = Vec::new();
-        for i in 1..steps + 1 {
-            let dx = direction.0;
-            let dy = direction.1;
-
-            let x = head.0;
-            let y = head.1;
-
-            vec.push((x + (dx * i), y + (dy * i)));
-        }
-
-        vec
-    }
-
     fn is_close_to_head(head: (i32, i32), tail: (i32, i32)) -> bool {
-        let distance = f64::sqrt(((head.0 - tail.0).pow(2) + (head.1 - tail.1).pow(2)).into());
-        if distance < 2.0 {
-            return true;
-        }
-        false
-    }
-}
-
-impl AdventOfCode for Day9 {
-    fn day_str(&self) -> String {
-        "day09".to_owned()
+        return (head.0 - tail.0).abs() < 2 && (head.1 - tail.1).abs() < 2
     }
 
-    fn run_puzzle1(&mut self, input_str: String) {
+    fn run_rope(input_str: String, ropes: i32) -> i32 {
+        let no_ropes: usize = ropes as usize;
+        let mut ropes = vec![(0, 0); no_ropes];
+        let mut trail: Vec<(i32, i32)> = Vec::new();
+        trail.push(*ropes.last().unwrap());
+
         let directions: Vec<(char, i32)> = input_str
             .lines()
             .map(|line| {
@@ -45,52 +25,47 @@ impl AdventOfCode for Day9 {
             })
             .collect();
 
-        let mut head = (0, 0);
-        let mut head_trail: Vec<(i32, i32)> = Vec::new();
-
-        let mut tail = (0, 0);
-        let mut tail_trail: Vec<(i32, i32)> = Vec::new();
-        tail_trail.push((0, 0));
-
         for (direction, steps) in directions {
-            match direction {
-                'L' => {
-                    head_trail.extend(Day9::step((-1, 0), steps, &head));
+            for _ in 0..steps {
+                let head = ropes.first_mut().unwrap();
+                match direction {
+                    'L' => head.0 -= 1,
+                    'R' => head.0 += 1,
+                    'U' => head.1 += 1,
+                    'D' => head.1 -= 1,
+                    _ => panic!("Unknown direction"),
                 }
-                'R' => {
-                    head_trail.extend(Day9::step((1, 0), steps, &head));
-                }
-                'U' => {
-                    head_trail.extend(Day9::step((0, 1), steps, &head));
-                }
-                'D' => {
-                    head_trail.extend(Day9::step((0, -1), steps, &head));
-                }
-                _ => panic!("Unknown direction: {}", direction),
-            }
 
-            head = *head_trail.last().unwrap();
-        }
+                for k in 1..no_ropes {
+                    let head_x = ropes.get(k - 1).unwrap().0;
+                    let head_y = ropes.get(k - 1).unwrap().1;
+                    let tail_x = ropes.get(k).unwrap().0;
+                    let tail_y = ropes.get(k).unwrap().1;
+                    if !Day9::is_close_to_head((head_x, head_y), (tail_x, tail_y)) {
+                        ropes[k].0 += (head_x - tail_x).signum();
+                        ropes[k].1 += (head_y - tail_y).signum();
+                    }
+                }
 
-        for (i, head) in head_trail.iter().enumerate() {
-            let close = Day9::is_close_to_head(*head, tail);
-            if !close {
-                let prev = head_trail.get(i - 1).unwrap();
-                tail = *prev;
-                tail_trail.push(*prev);
+                trail.push(*ropes.last().unwrap());
             }
         }
+         trail.into_iter().collect::<HashSet<_>>().into_iter().len() as i32
+    }
+}
 
-        let trail_length = tail_trail
-            .into_iter()
-            .collect::<HashSet<_>>()
-            .into_iter()
-            .len();
-
-        self.puzzle1_result = trail_length as i32;
+impl AdventOfCode for Day9 {
+    fn day_str(&self) -> String {
+        "day09".to_owned()
     }
 
-    fn run_puzzle2(&mut self, _input_str: String) {}
+    fn run_puzzle1(&mut self, input_str: String) {
+        self.puzzle1_result = Day9::run_rope(input_str, 2);
+    }
+
+    fn run_puzzle2(&mut self, input_str: String) {
+        self.puzzle2_result = Day9::run_rope(input_str, 10);
+    }
 
     fn get_puzzle1_result(&self) -> Option<Box<dyn Any>> {
         Some(Box::new(self.puzzle1_result))
@@ -107,5 +82,5 @@ mod tests {
     use crate::{puzzle1_test, puzzle2_test};
 
     puzzle1_test!(Day9, 13, 6018);
-    puzzle2_test!(Day9, 0, 0);
+    puzzle2_test!(Day9, 1, 2619);
 }
