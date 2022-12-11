@@ -5,7 +5,7 @@ default_new_ctor!(Day9);
 
 impl Day9 {
     fn is_close_to_head(head: (i32, i32), tail: (i32, i32)) -> bool {
-        return (head.0 - tail.0).abs() < 2 && (head.1 - tail.1).abs() < 2
+        (head.0 - tail.0).abs() < 2 && (head.1 - tail.1).abs() < 2
     }
 
     fn run_rope(input_str: String, ropes: i32) -> i32 {
@@ -50,7 +50,7 @@ impl Day9 {
                 trail.push(*ropes.last().unwrap());
             }
         }
-         trail.into_iter().collect::<HashSet<_>>().into_iter().len() as i32
+        trail.into_iter().collect::<HashSet<_>>().into_iter().len() as i32
     }
 }
 
