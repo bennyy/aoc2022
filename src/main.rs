@@ -62,6 +62,10 @@ fn convert_result_to_string(input: Option<Box<dyn Any>>) -> Option<String> {
             return Some(value.downcast::<i32>().unwrap().to_string());
         } else if value.is::<String>() {
             return Some(value.downcast::<String>().unwrap().to_string());
+        } else if value.is::<u32>() {
+            return Some(value.downcast::<u32>().unwrap().to_string());
+        } else if value.is::<u64>() {
+            return Some(value.downcast::<u64>().unwrap().to_string());
         } else {
             panic!("Unknown Any!");
         }
