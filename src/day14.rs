@@ -7,7 +7,7 @@ impl Day14 {}
 
 impl AdventOfCode for Day14 {
     fn day_str(&self) -> String {
-        "day13".to_owned()
+        "day14".to_owned()
     }
 
     fn run_puzzle1(&mut self, _input_str: String) {}
@@ -28,6 +28,6 @@ mod tests {
     use super::*;
     use crate::{puzzle1_test, puzzle2_test};
 
-    puzzle1_test!(Day14, 0 /* 24 */, 0);
+    puzzle1_test!(Day14, 24, 0);
     puzzle2_test!(Day14, 0, 0);
 }
