@@ -7,7 +7,6 @@ use std::collections::HashMap;
 use std::collections::BinaryHeap;
 use std::mem;
 
-
 default_aoc_struct!(Day12, i32);
 default_new_ctor!(Day12);
 
