@@ -27,3 +27,15 @@ pub fn convert_string_of_ints_to_list(input_str: String) -> Vec<i32> {
         .map(|x| x.parse::<i32>().unwrap())
         .collect()
 }
+
+#[allow(dead_code)]
+fn index_to_coord(index: usize, width: usize) -> (usize, usize) {
+    let x = index % width;
+    let y = index / width;
+    (x, y)
+}
+
+#[allow(dead_code)]
+fn coord_to_index(coord: (usize, usize), width: usize) -> usize {
+    coord.0 + width * coord.1
+}
