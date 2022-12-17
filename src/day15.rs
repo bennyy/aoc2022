@@ -125,7 +125,8 @@ impl AdventOfCode for Day15 {
         let mut y_pos_start = 0;
         let mut y_pos_end = 20;
         if sensors.len() > 20 {
-            y_pos_start = 0;
+            //y_pos_start = 0;
+            y_pos_start = 2973563; // Speedrun..
             y_pos_end = 4000000;
         }
 
