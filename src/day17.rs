@@ -1,5 +1,5 @@
 use crate::{aoc::AdventOfCode, default_aoc_struct, default_new_ctor};
-use std::{any::Any};
+use std::any::Any;
 default_aoc_struct!(Day17, i32);
 default_new_ctor!(Day17);
 
