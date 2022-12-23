@@ -15,5 +15,3 @@ cargo run
 ```console
 cargo test
 ```
-
-.

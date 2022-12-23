@@ -20,6 +20,13 @@ impl Day18 {
             })
             .collect()
     }
+
+    fn flatten_to_1d(coords: &Vec<(i32, i32, i32)>, width: i32, height: i32, depth: i32 ) -> Vec<i32> {
+        coords
+        .iter()
+        .map(|(x, y, z)| (x+1) + width * (y+1) + height * depth * (z+1))
+        .collect()
+    }
 }
 
 impl AdventOfCode for Day18 {
@@ -38,11 +45,9 @@ impl AdventOfCode for Day18 {
         ];
         const WIDTH: i32 = 22;
         const HEIGHT: i32 = 22;
+        const DEPTH: i32 = 22;
         let coords = Day18::parse_input(&input_str);
-        let space: Vec<i32> = coords
-            .iter()
-            .map(|(x, y, z)| x + WIDTH * y + WIDTH * HEIGHT * z)
-            .collect();
+        let space = Day18::flatten_to_1d(&coords, WIDTH, HEIGHT, DEPTH);
 
         let mut side = 0;
         for i in space.iter() {
@@ -68,18 +73,17 @@ impl AdventOfCode for Day18 {
         let neighbours = vec![
             (1, 0, 0),
             (-1, 0, 0),
-            (0, -1, 0),
             (0, 1, 0),
+            (0, -1, 0),
             (0, 0, 1),
             (0, 0, -1),
         ];
-        const WIDTH: i32 = 30;
-        const HEIGHT: i32 = 30;
+        const WIDTH: i32 = 24;
+        const HEIGHT: i32 = 24;
+        const DEPTH: i32 = 24;
+
         let coords = Day18::parse_input(&input_str);
-        let space: Vec<i32> = coords
-            .iter()
-            .map(|(x, y, z)| x + WIDTH * y + WIDTH * HEIGHT * z)
-            .collect();
+        let space = Day18::flatten_to_1d(&coords, WIDTH, HEIGHT, DEPTH);
 
         let mut prio_queue: VecDeque<i32> = VecDeque::new();
         let mut visited: HashSet<i32> = HashSet::new();
@@ -138,6 +142,5 @@ mod tests {
 
     puzzle1_test!(Day18, 64, 4340);
 
-    // 2466 too low..
-    puzzle2_test!(Day18, 58, 0);
+    puzzle2_test!(Day18, 58, 2468);
 }
