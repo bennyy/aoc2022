@@ -21,11 +21,16 @@ impl Day18 {
             .collect()
     }
 
-    fn flatten_to_1d(coords: &Vec<(i32, i32, i32)>, width: i32, height: i32, depth: i32 ) -> Vec<i32> {
+    fn flatten_to_1d(
+        coords: &Vec<(i32, i32, i32)>,
+        width: i32,
+        height: i32,
+        depth: i32,
+    ) -> Vec<i32> {
         coords
-        .iter()
-        .map(|(x, y, z)| (x+1) + width * (y+1) + height * depth * (z+1))
-        .collect()
+            .iter()
+            .map(|(x, y, z)| (x + 1) + width * (y + 1) + height * depth * (z + 1))
+            .collect()
     }
 }
 
