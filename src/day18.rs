@@ -1,7 +1,7 @@
 use crate::{aoc::AdventOfCode, default_aoc_struct, default_new_ctor};
 use std::{
     any::Any,
-    collections::{HashMap, HashSet, VecDeque},
+    collections::{HashSet, VecDeque},
 };
 default_aoc_struct!(Day18, i32);
 default_new_ctor!(Day18);
