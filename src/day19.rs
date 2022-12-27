@@ -1,10 +1,9 @@
 use crate::{aoc::AdventOfCode, default_aoc_struct, default_new_ctor};
-use core::num;
+
 use std::{
     any::Any,
     cmp,
     collections::{HashSet, VecDeque},
-    hash::Hash,
 };
 default_aoc_struct!(Day19, i32);
 default_new_ctor!(Day19);

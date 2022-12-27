@@ -8,39 +8,6 @@ impl Day17 {
         input_str.chars().collect()
     }
 
-    fn chamber_to_str(
-        chamber: &[u32],
-        width: usize,
-        current_shape: Option<Vec<(u32, u32)>>,
-    ) -> String {
-        let mut chamber_copy = chamber.to_vec();
-        if current_shape.is_some() {
-            for p in current_shape.unwrap().iter() {
-                let i = (p.0 as u32) + (width as u32) * (p.1 as u32);
-                *chamber_copy.get_mut(i as usize).unwrap() = 9;
-            }
-        }
-
-        let mut return_string = "  0123456\n".to_owned();
-        for (i, row) in chamber_copy.chunks(width).enumerate() {
-            let joned: String = row
-                .to_vec()
-                .iter()
-                .map(|&id| match id {
-                    0 => ".",
-                    1 => "#",
-                    9 => "@",
-                    _ => "?",
-                })
-                .collect();
-            return_string.push_str(&i.to_string());
-            return_string.push(' ');
-            return_string.push_str(&joned);
-            return_string.push('\n');
-        }
-        return_string
-    }
-
     fn increase_chamber(chamber: &mut Vec<u32>, width: usize, height: usize) {
         let mut extra_chamber: Vec<u32> = vec![0; width * height];
         extra_chamber.extend(&mut chamber.iter());

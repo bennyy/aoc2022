@@ -21,12 +21,7 @@ impl Day18 {
             .collect()
     }
 
-    fn flatten_to_1d(
-        coords: &Vec<(i32, i32, i32)>,
-        width: i32,
-        height: i32,
-        depth: i32,
-    ) -> Vec<i32> {
+    fn flatten_to_1d(coords: &[(i32, i32, i32)], width: i32, height: i32, depth: i32) -> Vec<i32> {
         coords
             .iter()
             .map(|(x, y, z)| (x + 1) + width * (y + 1) + height * depth * (z + 1))
@@ -105,7 +100,10 @@ impl AdventOfCode for Day18 {
                 let nx = x + xo;
                 let ny = y + yo;
                 let nz = z + zo;
-                if nx > HEIGHT || nx < 0 || ny > HEIGHT || ny < 0 || nz > HEIGHT || nz < 0 {
+                if !(0..=HEIGHT).contains(&nx)
+                    || !(0..=HEIGHT).contains(&ny)
+                    || !(0..=HEIGHT).contains(&nz)
+                {
                     continue;
                 }
 

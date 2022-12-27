@@ -30,27 +30,6 @@ impl Day14 {
         neighbors
     }
 
-    fn print_cave(cave: &[usize], width: usize) {
-        let mut cave_str: String = "".to_owned();
-        cave.chunks(width as usize).for_each(|line| {
-            let joned: String = line[400..]
-                .to_vec()
-                .iter()
-                .map(|&id| match id {
-                    AIR => ".",
-                    WALL => "#",
-                    SAND => "o",
-                    PATH => "~",
-                    _ => "?",
-                })
-                .collect();
-            cave_str.push_str(&joned);
-            cave_str.push('\n');
-        });
-
-        println!("{}", cave_str);
-    }
-
     fn get_rock_lines(input_str: &str) -> Vec<Vec<(u32, u32)>> {
         input_str
             .lines()
